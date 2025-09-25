@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Your Name — Portfolio</title>
+  <meta name="description" content="Portfolio of Your Name — developer, designer, problem solver." />
+
+  <!-- Simple, dependency-free single-file portfolio. Replace text and projects with your own. -->
+
+  <style>
+    :root{
+      --bg:#0f1724; --card:#0b1220; --muted:#94a3b8; --accent:#7c3aed; --glass: rgba(255,255,255,0.04);
+      --radius:14px; --gap:18px; --max-width:1100px;
+      --fw-heading:700; --fw-body:400;
+    }
+    [data-theme="light"]{ --bg:#f7f9fc; --card:#ffffff; --muted:#495057; --accent:#7c3aed; --glass: rgba(15,23,36,0.04); }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(124,58,237,0.12), transparent), var(--bg);
+      color:var(--muted); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      line-height:1.5; padding:36px; display:flex; justify-content:center;
+    }
+
+    .wrap{width:100%; max-width:var(--max-width)}
+
+    header{display:flex; align-items:center; justify-content:space-between; gap:18px; margin-bottom:28px}
+    .brand{display:flex; gap:12px; align-items:center}
+    .logo{width:52px; height:52px; border-radius:12px; background:linear-gradient(135deg,var(--accent), #4f46e5); display:flex; align-items:center; justify-content:center; color:white; font-weight:700}
+    .brand h1{font-size:18px; margin:0; color:var(--muted)}
+    .brand p{margin:0; font-size:12px; color:var(--muted)}
+
+    nav{display:flex; gap:12px; align-items:center}
+    .nav-btn{background:transparent; border:1px solid var(--glass); color:var(--muted); padding:10px 12px; border-radius:10px; cursor:pointer; font-size:13px}
+    .cta{background:linear-gradient(90deg,var(--accent), #4f46e5); color:white; border:none}
+
+    main{display:grid; grid-template-columns:1fr 380px; gap:26px}
+    @media (max-width:920px){ main{grid-template-columns:1fr} .sidebar{order:2} }
+
+    .hero{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent); border-radius:var(--radius); padding:28px}
+    .hero h2{margin:0 0 6px 0; color:white; font-size:28px; font-weight:var(--fw-heading)}
+    .hero p{margin:0 0 16px 0; color:var(--muted)}
+
+    .actions{display:flex; gap:12px; margin-bottom:18px}
+    .kbd{background:var(--card); padding:8px 10px; border-radius:8px; font-size:13px}
+
+    .projects{display:grid; grid-template-columns:repeat(2,1fr); gap:14px}
+    @media (max-width:640px){ .projects{grid-template-columns:1fr} }
+
+    .project{background:var(--card); border-radius:12px; padding:12px; min-height:120px; display:flex; flex-direction:column; gap:8px; cursor:pointer; border:1px solid transparent}
+    .project:hover{transform:translateY(-6px); transition:transform .2s ease; border-color:rgba(255,255,255,0.03)}
+    .project .title{color:white; font-weight:600}
+    .project .desc{font-size:13px; color:var(--muted)}
+    .tags{display:flex; gap:8px; flex-wrap:wrap}
+    .tag{font-size:12px; padding:6px 8px; border-radius:999px; background:var(--glass); color:var(--muted)}
+
+    .sidebar{position:sticky; top:36px; align-self:start}
+    .card{background:var(--card); border-radius:12px; padding:18px; margin-bottom:18px}
+    .avatar{width:84px; height:84px; border-radius:12px; background:linear-gradient(135deg,#06b6d4,#7c3aed); display:flex; align-items:center; justify-content:center; color:white; font-weight:700; font-size:28px}
+    .meta h3{margin:8px 0 0 0; color:white}
+    .meta p{margin:6px 0 0 0; font-size:13px}
+
+    .skills{display:flex; gap:8px; flex-wrap:wrap; margin-top:8px}
+    .skill{padding:8px 10px; background:var(--glass); border-radius:10px; font-size:13px}
+
+    footer{margin-top:28px; color:var(--muted); font-size:13px}
+
+    /* modal */
+    .modal-backdrop{position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(2,6,23,0.6); z-index:60}
+    .modal{width:min(880px,94%); background:var(--card); border-radius:12px; padding:18px; color:var(--muted)}
+    .modal header{display:flex; justify-content:space-between; align-items:center}
+    .modal h3{color:white}
+    .close{background:transparent; border:none; color:var(--muted); font-size:18px; cursor:pointer}
+
+    /* small niceties */
+    .muted{color:var(--muted)}
+    a{color:inherit; text-decoration:none}
+  </style>
+</head>
+<body>
+  <div class="wrap" id="app">
+    <header>
+      <div class="brand">
+        <div class="logo">YN</div>
+        <div>
+          <h1>Your Name</h1>
+          <p class="muted">Frontend dev · Python tinkerer · Curious problem-solver</p>
+        </div>
+      </div>
+
+      <nav>
+        <button class="nav-btn" data-scroll-to="projects">Projects</button>
+        <button class="nav-btn" data-scroll-to="about">About</button>
+        <button class="nav-btn" id="themeToggle" aria-pressed="false">Toggle theme</button>
+        <a class="nav-btn cta" href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h2>Hi — I'm <span style="color:var(--accent)">Your Name</span>.</h2>
+        <p>I design and build delightful things on the web. I blend clean code with practical design and love making tools that solve real problems.</p>
+
+        <div class="actions">
+          <span class="kbd">📫 Email: <strong>you@example.com</strong></span>
+          <span class="kbd">💼 Open to work · Freelance</span>
+        </div>
+
+        <div id="projects" class="projects">
+          <!-- Project cards: click to open modal with more info. Replace data attributes with real content. -->
+          <article class="project" data-title="Project A" data-desc="A small SPA that tracks habits with a tiny local DB." data-tech="HTML · CSS · JS · LocalStorage">
+            <div class="title">Project A — Habit Tracker</div>
+            <div class="desc">Tiny web app to help you build streaks and extract CSVs.</div>
+            <div class="tags"><span class="tag">vanilla-js</span><span class="tag">pwa</span></div>
+          </article>
+
+          <article class="project" data-title="Project B" data-desc="A Python script that automates boring file tasks." data-tech="Python · argparse">
+            <div class="title">Project B — File Automator</div>
+            <div class="desc">Batch-rename and organize files using rules you write.</div>
+            <div class="tags"><span class="tag">python</span><span class="tag">cli</span></div>
+          </article>
+
+          <article class="project" data-title="Project C" data-desc="Personal blog built with static site generator." data-tech="Markdown · Static site">
+            <div class="title">Project C — Notes & Essays</div>
+            <div class="desc">A minimal, fast blog for long-form thoughts and tutorials.</div>
+            <div class="tags"><span class="tag">html</span><span class="tag">seo</span></div>
+          </article>
+
+          <article class="project" data-title="Project D" data-desc="Small game prototype made in Godot." data-tech="GDScript · Godot">
+            <div class="title">Project D — Game Prototype</div>
+            <div class="desc">A tiny platformer exploring mechanics of gravity switching.</div>
+            <div class="tags"><span class="tag">game-dev</span><span class="tag">godot</span></div>
+          </article>
+        </div>
+      </section>
+
+      <aside class="sidebar">
+        <div class="card">
+          <div style="display:flex; gap:12px; align-items:center">
+            <div class="avatar">YN</div>
+            <div class="meta">
+              <h3>Your Name</h3>
+              <p class="muted">Software developer — building fast, thoughtful interfaces</p>
+            </div>
+          </div>
+
+          <div class="skills">
+            <div class="skill">HTML</div>
+            <div class="skill">CSS</div>
+            <div class="skill">JavaScript</div>
+            <div class="skill">Python</div>
+            <div class="skill">Godot</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h4 style="margin:0 0 8px 0">Contact</h4>
+          <p class="muted" id="contact">Drop a line — <a href="mailto:you@example.com">you@example.com</a></p>
+          <p class="muted" style="margin-top:8px">Or share your CV: <a href="#" onclick="alert('Drop a link or upload somewhere and replace this anchor')">Upload link</a></p>
+        </div>
+
+        <div class="card">
+          <h4 style="margin:0 0 8px 0">Quick links</h4>
+          <p class="muted" style="margin:0">• <a href="#projects">Projects</a></p>
+          <p class="muted" style="margin:6px 0 0 0">• <a href="#contact">Contact</a></p>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      <p>Made with curiosity — © <span id="year"></span> Your Name</p>
+    </footer>
+
+    <!-- modal (hidden) -->
+    <div class="modal-backdrop" id="modal">
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <header>
+          <h3 id="modalTitle">Project title</h3>
+          <button class="close" id="closeModal">✕</button>
+        </header>
+        <div id="modalBody">
+          <p class="muted">Project details go here. Add images, links, GIFs or a demo embed.</p>
+          <p class="muted" id="modalTech"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // small utilities
+    const $ = (sel, ctx=document) => ctx.querySelector(sel);
+    const $$ = (sel, ctx=document) => Array.from(ctx.querySelectorAll(sel));
+
+    // theme toggle
+    const themeToggle = $('#themeToggle');
+    function setTheme(t){ document.documentElement.setAttribute('data-theme', t); themeToggle.setAttribute('aria-pressed', t==='dark'); localStorage.setItem('theme', t);}    
+    (function(){ const saved = localStorage.getItem('theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'); setTheme(saved); })();
+    themeToggle.addEventListener('click', ()=>{ const now = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light'; setTheme(now); });
+
+    // scroll-to nav
+    $$('[data-scroll-to]').forEach(btn=>btn.addEventListener('click', ()=>{
+      const id = btn.getAttribute('data-scroll-to'); const el = document.getElementById(id);
+      if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+    }));
+
+    // project modal handling
+    const modal = $('#modal');
+    const closeModal = $('#closeModal');
+    $$('.project').forEach(p=>p.addEventListener('click', ()=>{
+      const title = p.dataset.title || p.querySelector('.title').textContent;
+      const desc = p.dataset.desc || p.querySelector('.desc').textContent;
+      const tech = p.dataset.tech || '';
+      $('#modalTitle').textContent = title;
+      $('#modalBody p').textContent = desc;
+      $('#modalTech').textContent = tech;
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }));
+    closeModal.addEventListener('click', ()=>{ modal.style.display='none'; document.body.style.overflow=''; });
+    modal.addEventListener('click', (e)=>{ if(e.target === modal) { modal.style.display='none'; document.body.style.overflow=''; } });
+
+    // year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // small keyboard shortcut: press "g" to focus first project (playful)
+    window.addEventListener('keydown', (e)=>{ if(e.key === 'g'){ const first = document.querySelector('.project'); if(first) first.scrollIntoView({behavior:'smooth'}); }});
+
+    // progressive enhancement note: projects could be loaded from JSON/AJAX for maintainability
+  </script>
+</body>
+</html>
