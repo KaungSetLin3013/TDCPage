@@ -1,0 +1,333 @@
+:root {
+    --bg: #0f1724;
+    --card: #0b1220;
+    --muted: #94a3b8;
+    --accent: #7c3aed;
+    --glass: rgba(255, 255, 255, 0.04);
+    --radius: 12px;
+    --max-width: 1100px
+}
+
+[data-theme="light"] {
+    --bg: #f7f9fc;
+    --card: #ffffff;
+    --muted: #495057;
+    --accent: #7c3aed;
+    --glass: rgba(15, 23, 36, 0.04);
+}
+
+* {
+    box-sizing: border-box
+}
+
+html,
+body {
+    height: 100%
+}
+
+body {
+    margin: 0;
+    font-family: Inter, system-ui, Arial;
+    background: radial-gradient(1200px 600px at 10% 10%, rgba(124, 58, 237, 0.08), transparent), var(--bg);
+    color: var(--muted);
+    padding: 32px;
+    display: flex;
+    justify-content: center
+}
+
+.wrap {
+    width: 100%;
+    max-width: var(--max-width)
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px
+}
+
+.brand {
+    display: flex;
+    gap: 12px;
+    align-items: center
+}
+
+.logo {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--accent), #4f46e5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700
+}
+
+h1 {
+    color: #32ff01;
+    margin: 0;
+    font-size: 18px
+}
+
+p.lead {
+    margin: 0;
+    color: var(--muted)
+}
+
+nav {
+    display: flex;
+    gap: 10px;
+    align-items: center
+}
+
+.nav-btn {
+    background: transparent;
+    border: 1px solid var(--glass);
+    color: var(--muted);
+    padding: 8px 12px;
+    border-radius: 10px;
+    cursor: pointer
+}
+
+.cta {
+    background: linear-gradient(90deg, var(--accent), #4f46e5);
+    color: white;
+    border: none
+}
+
+main {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 28px
+}
+
+@media (max-width:960px) {
+    main {
+        grid-template-columns: 1fr
+    }
+}
+
+.hero {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent);
+    border-radius: var(--radius);
+    padding: 22px
+}
+
+.hero h2 {
+    color: #32ff01;
+    margin: 0 0 6px 0
+}
+
+.hero p {
+    margin: 0 0 14px 0
+}
+
+.projects {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px
+}
+
+@media (max-width:640px) {
+    .projects {
+        grid-template-columns: 1fr
+    }
+}
+
+.project {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 1px solid transparent;
+    text-decoration: none;
+    color: inherit
+}
+
+.project:hover {
+    transform: translateY(-6px);
+    transition: transform .18s ease;
+    border-color: rgba(255, 255, 255, 0.03)
+}
+
+.thumb {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 8px;
+    background: #091021
+}
+
+.title {
+    font-weight: 600;
+    color: white
+}
+
+.desc {
+    font-size: 13px;
+    color: var(--muted)
+}
+
+.tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap
+}
+
+.tag {
+    font-size: 12px;
+    padding: 6px 8px;
+    border-radius: 999px;
+    background: var(--glass);
+    color: var(--muted)
+}
+
+.sidebar {
+    position: sticky;
+    top: 32px;
+    align-self: start
+}
+
+.card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px
+}
+
+.avatar {
+    width: 84px;
+    height: 84px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #06b6d4, #7c3aed);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 20px
+}
+
+.meta h3 {
+    margin: 8px 0 0 0;
+    color: #32ff01
+}
+
+.skills {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 8px
+}
+
+.skill {
+    padding: 8px 10px;
+    background: var(--glass);
+    border-radius: 10px;
+    font-size: 13px
+}
+
+footer {
+    margin-top: 22px;
+    color: var(--muted);
+    font-size: 13px
+}
+
+/* small responsive image helper */
+.thumb-fallback {
+    display: none;
+    place-items: center;
+    height: 160px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #0b1220, #071028);
+    color: #9fb2d7
+}
+
+a.inline-link {
+    color: var(--accent);
+    text-decoration: underline
+}
+
+.avatar-img {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    background: transparent;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    /* optional */
+}
+.avatar {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    overflow: hidden;
+    padding: 0;
+    display: block;
+    background: transparent;
+  }
+  .avatar img { width:100%; height:100%; object-fit:cover; display:block; }
+  .profile-with-social {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  /* social icons row */
+  .social-icons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 6px;
+  }
+  
+  /* shared icon styles */
+  .social-link {
+    display: inline-flex;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: transform .14s ease, box-shadow .14s ease;
+    color: #111; /* default icon color (icons use currentColor) */
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+  }
+  
+  /* brand colors (background or icon color) */
+  .social-link.fb { color: #ffffff; background: #1877F2; }
+  .social-link.x  { color: #ffffff; background: #000000; }
+  .social-link.ig { color: #ffffff; background: linear-gradient(45deg,#f58529,#dd2a7b,#515bd4); }
+  .social-link.line { color: #ffffff; background: #00C300; }
+  
+  /* svg sizing inside links */
+  .social-link svg { width: 20px; height: 20px; display:block; }
+  
+  /* hover / focus */
+  .social-link:hover,
+  .social-link:focus {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+    outline: none;
+  }
+  
+  /* keyboard focus visible */
+  .social-link:focus-visible {
+    outline: 3px solid rgba(0,120,215,0.25);
+    outline-offset: 3px;
+  }
+  
+  /* small screens: slightly smaller icons */
+  @media (max-width: 420px) {
+    .social-link { width: 34px; height: 34px; }
+    .social-link svg { width: 16px; height: 16px; }
+  }
