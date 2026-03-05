@@ -263,20 +263,138 @@
   .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
+  /* HAMBURGER */
+  .hamburger {
+    display: none; flex-direction: column; gap: 5px;
+    background: none; border: none; padding: 4px; z-index: 1100;
+  }
+  .hamburger span {
+    display: block; width: 24px; height: 2px;
+    background: var(--text); border-radius: 2px; transition: all 0.3s ease;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* MOBILE DRAWER */
+  .mobile-drawer {
+    display: none; position: fixed; inset: 0;
+    background: var(--bg); z-index: 1050;
+    flex-direction: column; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+  }
+  .mobile-drawer.open { opacity: 1; pointer-events: all; }
+  .mobile-drawer a {
+    font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800;
+    color: var(--muted); text-decoration: none; padding: 18px 0;
+    letter-spacing: -0.02em; transition: color 0.2s;
+    border-bottom: 1px solid var(--border); width: 80%; text-align: center;
+  }
+  .mobile-drawer a:last-of-type { border-bottom: none; }
+  .mobile-drawer a:hover { color: var(--accent); }
+  .mobile-lang {
+    margin-top: 40px; display: flex;
+    border: 1px solid var(--border); border-radius: 3px; overflow: hidden;
+  }
+  .mobile-lang button {
+    background: transparent; border: none; color: var(--muted);
+    font-family: 'Space Mono', monospace; font-size: 0.75rem;
+    letter-spacing: 0.15em; padding: 10px 24px; transition: all 0.2s;
+  }
+  .mobile-lang button.active { background: var(--accent); color: #000; font-weight: 700; }
+
   @media (max-width: 900px) {
-    nav { padding: 14px 24px; }
+    nav { padding: 14px 20px; }
     .nav-links { display: none; }
-    .hero { padding: 100px 24px 60px; }
-    section { padding: 80px 24px; }
-    .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 48px; }
-    .projects-grid { grid-template-columns: 1fr 1fr; }
-    .exp-item { grid-template-columns: 1fr; gap: 8px; padding-left: 28px; }
-    footer { flex-direction: column; gap: 8px; text-align: center; padding: 24px; }
+    .lang-toggle { display: none; }
+    .hamburger { display: flex; }
+    .mobile-drawer { display: flex; }
+    /* keep cursor on desktop, only hide on touch */
+    .hero { padding: 100px 20px 60px; }
+    section { padding: 72px 20px; }
+    .section-header { grid-template-columns: 1fr; gap: 12px; margin-bottom: 48px; }
+    .section-label { padding-top: 0; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    .projects-grid { grid-template-columns: 1fr 1fr; gap: 1px; }
+    .exp-item { grid-template-columns: 1fr; gap: 6px; padding-left: 24px; }
+    .hero-scroll { display: none; }
+    footer { flex-direction: column; gap: 8px; text-align: center; padding: 24px 20px; }
   }
   @media (max-width: 600px) {
+    nav { padding: 12px 16px; }
+    .hero { padding: 88px 16px 48px; }
+    .hero-name { font-size: 48px; }
+    .hero-tag { font-size: 0.52rem; padding: 5px 12px; }
+    .hero-desc { font-size: 0.72rem; }
+    section { padding: 60px 16px; }
     .projects-grid { grid-template-columns: 1fr; }
-    .hero-name { font-size: 52px; }
+    .project-img { height: 160px; }
+    .project-body { padding: 20px; }
+    .stat { padding: 20px; }
+    .stat-num { font-size: 36px; }
+    .contact-heading { font-size: 52px; }
+    .exp-role { font-size: 1rem; }
+    .btn { padding: 12px 22px; font-size: 0.6rem; }
+    footer { padding: 20px 16px; }
   }
+
+  /* Hide custom cursor only on touch-primary devices */
+  @media (hover: none) and (pointer: coarse) {
+    #cursor-dot, #cursor-ring { display: none; }
+    body, body * { cursor: auto !important; }
+  }
+
+
+  /* WHY SECTION */
+  .why-section { background: var(--bg); border-top: 1px solid var(--border); }
+  .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 64px; }
+  .why-card {
+    background: var(--surface); padding: 40px 32px;
+    opacity: 0; transform: translateY(16px);
+    transition: opacity 0.5s ease, transform 0.5s ease, background 0.2s;
+  }
+  .why-card.visible { opacity: 1; transform: translateY(0); }
+  .why-card:hover { background: #16161f; }
+  .why-card-num { font-size: 0.55rem; letter-spacing: 0.25em; color: var(--accent); margin-bottom: 20px; }
+  .why-card-title { font-family: 'Syne', sans-serif; font-size: 1.25rem; font-weight: 800; margin-bottom: 16px; line-height: 1.1; }
+  .why-card-body { font-size: 0.68rem; color: var(--muted); line-height: 1.9; }
+  .why-card-body em { color: var(--accent); font-style: normal; }
+  .why-vision {
+    border: 1px solid var(--border); padding: 48px;
+    position: relative; overflow: hidden;
+  }
+  .why-vision::before {
+    content: ''; position: absolute; top: -60px; right: -60px;
+    width: 200px; height: 200px;
+    border: 1px solid rgba(0,245,160,0.07); border-radius: 50%;
+  }
+  .why-vision::after {
+    content: ''; position: absolute; top: -20px; right: -20px;
+    width: 100px; height: 100px;
+    border: 1px solid rgba(0,245,160,0.1); border-radius: 50%;
+  }
+  .why-vision-label { font-size: 0.55rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent2); margin-bottom: 20px; }
+  .why-vision-label::before { content: '// '; opacity: 0.5; }
+  .why-vision-text { font-family: 'Syne', sans-serif; font-size: clamp(1.1rem, 2.5vw, 1.6rem); font-weight: 700; line-height: 1.5; color: var(--text); max-width: 700px; }
+  .why-vision-text em { -webkit-text-stroke: 1.5px var(--accent); color: transparent; font-style: normal; }
+  .why-skills-needed { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 32px; }
+  .why-pill {
+    font-size: 0.55rem; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 6px 14px; border-radius: 20px;
+    border: 1px solid var(--border); color: var(--muted);
+    transition: all 0.2s;
+  }
+  .why-pill:hover { border-color: var(--accent); color: var(--accent); }
+
+  @media (max-width: 900px) {
+    .why-grid { grid-template-columns: 1fr; }
+    .why-vision { padding: 32px 24px; }
+  }
+  @media (max-width: 600px) {
+    .why-card { padding: 28px 20px; }
+  }
+
 </style>
 </head>
 <body>
@@ -291,6 +409,7 @@
   <div class="nav-right">
     <ul class="nav-links">
       <li><a href="#about"><span class="lang-en-i">About</span><span class="lang-ja-i">自己紹介</span></a></li>
+      <li><a href="#why"><span class="lang-en-i">Why IT</span><span class="lang-ja-i">志望理由</span></a></li>
       <li><a href="#skills"><span class="lang-en-i">Skills</span><span class="lang-ja-i">スキル</span></a></li>
       <li><a href="#projects"><span class="lang-en-i">Projects</span><span class="lang-ja-i">制作</span></a></li>
       <li><a href="#experience"><span class="lang-en-i">Experience</span><span class="lang-ja-i">経歴</span></a></li>
@@ -300,8 +419,25 @@
       <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
       <button class="lang-btn" id="btn-ja" onclick="setLang('ja')">JA</button>
     </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+
+<!-- MOBILE DRAWER -->
+<div class="mobile-drawer" id="mobileDrawer">
+  <a href="#why" onclick="closeDrawer()"><span class="lang-en-i">Why IT</span><span class="lang-ja-i">志望理由</span></a>
+  <a href="#about" onclick="closeDrawer()"><span class="lang-en-i">About</span><span class="lang-ja-i">自己紹介</span></a>
+  <a href="#skills" onclick="closeDrawer()"><span class="lang-en-i">Skills</span><span class="lang-ja-i">スキル</span></a>
+  <a href="#projects" onclick="closeDrawer()"><span class="lang-en-i">Projects</span><span class="lang-ja-i">制作</span></a>
+  <a href="#experience" onclick="closeDrawer()"><span class="lang-en-i">Experience</span><span class="lang-ja-i">経歴</span></a>
+  <a href="#contact" onclick="closeDrawer()"><span class="lang-en-i">Contact</span><span class="lang-ja-i">連絡</span></a>
+  <div class="mobile-lang">
+    <button id="mbtn-en" class="active" onclick="setLang('en')">EN</button>
+    <button id="mbtn-ja" onclick="setLang('ja')">JA</button>
+  </div>
+</div>
 
 <!-- HERO -->
 <section class="hero" id="home">
@@ -332,6 +468,75 @@
   </div>
   <div class="hero-scroll">
     <span class="lang-en-i">Scroll to explore</span><span class="lang-ja-i">スクロール</span>
+  </div>
+</section>
+
+
+<!-- WHY IT -->
+<section class="why-section" id="why">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-label"><span class="lang-en-i">My Drive</span><span class="lang-ja-i">志望動機</span></div>
+      <h2 class="section-title">
+        <span class="lang-en">Why I chose<br>this path</span>
+        <span class="lang-ja">なぜIT業界<br>を目指すのか</span>
+      </h2>
+    </div>
+
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-card-num">01 // <span class="lang-en-i">Origin</span><span class="lang-ja-i">きっかけ</span></div>
+        <div class="why-card-title">
+          <span class="lang-en">The code<br>behind things</span>
+          <span class="lang-ja">物を動かす<br>コードへの愛</span>
+        </div>
+        <div class="why-card-body">
+          <span class="lang-en">Cars. Robots. Machines. I've always been fascinated by <em>what's inside</em> — the code that makes physical things move and think. That curiosity is what pulled me into engineering, and it still drives me today.</span>
+          <span class="lang-ja">車、ロボット、機械。昔からその<em>中身</em>が気になっていた。物理的なものを動かすコードへの好奇心がエンジニアリングに引き込まれたきっかけ。その気持ちは今も変わらない。</span>
+        </div>
+      </div>
+
+      <div class="why-card">
+        <div class="why-card-num">02 // <span class="lang-en-i">Experience</span><span class="lang-ja-i">これまでの経験</span></div>
+        <div class="why-card-title">
+          <span class="lang-en">Building on<br>what I know</span>
+          <span class="lang-ja">経験を活かして<br>前へ進む</span>
+        </div>
+        <div class="why-card-body">
+          <span class="lang-en">I didn't start from zero. Backend work, systems thinking, real production code — I've been here before. I want to take that foundation and keep building, deeper and further than before.</span>
+          <span class="lang-ja">ゼロから始めたわけじゃない。バックエンド開発、システム設計、本番環境でのコード。その積み重ねを土台に、もっと深く、もっと遠くへ進みたい。</span>
+        </div>
+      </div>
+
+      <div class="why-card">
+        <div class="why-card-num">03 // <span class="lang-en-i">Goal</span><span class="lang-ja-i">目標</span></div>
+        <div class="why-card-title">
+          <span class="lang-en">A leader who<br>lifts others</span>
+          <span class="lang-ja">仲間を支える<br>リーダーへ</span>
+        </div>
+        <div class="why-card-body">
+          <span class="lang-en">I'm a support-type by nature. I want to become a <em>backend lead</em> — not to stand above the team, but to stand <em>behind them</em>. A leader whose strength is making everyone around them better.</span>
+          <span class="lang-ja">もともとサポートタイプ。<em>バックエンドリーダー</em>として、チームの上に立つのではなく、<em>後ろで支える</em>存在になりたい。みんなをより強くするリーダーを目指している。</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="why-vision reveal">
+      <div class="why-vision-label"><span class="lang-en-i">The Vision</span><span class="lang-ja-i">ビジョン</span></div>
+      <div class="why-vision-text">
+        <span class="lang-en">To lead backend systems for <em>cars and robots</em> — writing the code that makes the physical world move. Growing through coding, team communication, and hardware-software integration.</span>
+        <span class="lang-ja"><em>車やロボット</em>のバックエンドシステムをリードする。コーディング、チームとのコミュニケーション、ハードとソフトの連携を通じて、物理世界を動かすコードを書き続けたい。</span>
+      </div>
+      <div class="why-skills-needed">
+        <span class="why-pill"><span class="lang-en-i">Backend Engineering</span><span class="lang-ja-i">バックエンド開発</span></span>
+        <span class="why-pill"><span class="lang-en-i">Team Communication</span><span class="lang-ja-i">チームコミュニケーション</span></span>
+        <span class="why-pill"><span class="lang-en-i">Client Communication</span><span class="lang-ja-i">顧客対応</span></span>
+        <span class="why-pill"><span class="lang-en-i">Automotive Software</span><span class="lang-ja-i">車載ソフトウェア</span></span>
+        <span class="why-pill"><span class="lang-en-i">Hardware Integration</span><span class="lang-ja-i">ハード・ソフト連携</span></span>
+        <span class="why-pill"><span class="lang-en-i">Leadership</span><span class="lang-ja-i">リーダーシップ</span></span>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -374,15 +579,78 @@
       <div class="section-label"><span class="lang-en-i">Technical Toolkit</span><span class="lang-ja-i">技術スキル</span></div>
       <h2 class="section-title"><span class="lang-en">Skills &<br>Technologies</span><span class="lang-ja">スキルと<br>技術</span></h2>
     </div>
+    <!-- skill badge helper -->
+    <style>
+      .skill-badge { display:inline-block; font-size:0.48rem; letter-spacing:0.1em; text-transform:uppercase; padding:2px 8px; border-radius:10px; margin-top:8px; border:1px solid rgba(0,245,160,0.35); color:var(--accent); background:rgba(0,245,160,0.06); }
+      .skill-badge.cert { border-color:rgba(123,47,255,0.4); color:#9d6fff; background:rgba(123,47,255,0.07); }
+      .skill-sub { font-size:0.55rem; color:var(--muted2); margin-top:6px; margin-bottom:2px; }
+    </style>
     <div class="skills-grid">
-      <div class="skill-item" style="--w:90%"><div class="skill-name">Python</div><div class="skill-bar"><div class="skill-fill"></div></div><div class="skill-pct">90%</div></div>
-      <div class="skill-item" style="--w:85%"><div class="skill-name">JavaScript</div><div class="skill-bar"><div class="skill-fill"></div></div><div class="skill-pct">85%</div></div>
-      <div class="skill-item" style="--w:80%"><div class="skill-name">HTML / CSS</div><div class="skill-bar"><div class="skill-fill"></div></div><div class="skill-pct">80%</div></div>
-      <div class="skill-item" style="--w:75%"><div class="skill-name">C / C++</div><div class="skill-bar"><div class="skill-fill"></div></div><div class="skill-pct">75%</div></div>
-      <div class="skill-item" style="--w:70%"><div class="skill-name">MySQL</div><div class="skill-bar"><div class="skill-fill"></div></div><div class="skill-pct">70%</div></div>
-      <div class="skill-item" style="--w:80%"><div class="skill-name">GDScript / Godot</div><div class="skill-bar"><div class="skill-fill"></div></div><div class="skill-pct">80%</div></div>
-      <div class="skill-item" style="--w:85%"><div class="skill-name">Backend Systems</div><div class="skill-bar"><div class="skill-fill"></div></div><div class="skill-pct">85%</div></div>
-      <div class="skill-item" style="--w:65%"><div class="skill-name">Game Design</div><div class="skill-bar"><div class="skill-fill"></div></div><div class="skill-pct">65%</div></div>
+
+      <div class="skill-item" style="--w:88%">
+        <div class="skill-name">Python</div>
+        <div class="skill-bar"><div class="skill-fill"></div></div>
+        <div class="skill-pct">88%</div>
+        <div class="skill-sub"><span class="lang-en-i">2 yrs professional use — Visible One</span><span class="lang-ja-i">Visible Oneで２年間業務使用</span></div>
+        <span class="skill-badge"><span class="lang-en-i">Work Experience</span><span class="lang-ja-i">実務経験</span></span>
+      </div>
+
+      <div class="skill-item" style="--w:82%">
+        <div class="skill-name">JavaScript</div>
+        <div class="skill-bar"><div class="skill-fill"></div></div>
+        <div class="skill-pct">82%</div>
+        <div class="skill-sub"><span class="lang-en-i">Strong personal projects & web dev</span><span class="lang-ja-i">個人プロジェクト・Web開発で習得</span></div>
+        <span class="skill-badge"><span class="lang-en-i">Proficient</span><span class="lang-ja-i">得意</span></span>
+      </div>
+
+      <div class="skill-item" style="--w:78%">
+        <div class="skill-name">C Language</div>
+        <div class="skill-bar"><div class="skill-fill"></div></div>
+        <div class="skill-pct">78%</div>
+        <div class="skill-sub"><span class="lang-en-i">Certified — Grade 3</span><span class="lang-ja-i">C言語検定３級取得</span></div>
+        <span class="skill-badge cert"><span class="lang-en-i">Certified Lv.3</span><span class="lang-ja-i">３級認定</span></span>
+      </div>
+
+      <div class="skill-item" style="--w:72%">
+        <div class="skill-name">MySQL</div>
+        <div class="skill-bar"><div class="skill-fill"></div></div>
+        <div class="skill-pct">72%</div>
+        <div class="skill-sub"><span class="lang-en-i">Used in backend work at Visible One</span><span class="lang-ja-i">バックエンド業務で実務使用</span></div>
+        <span class="skill-badge"><span class="lang-en-i">Work Experience</span><span class="lang-ja-i">実務経験</span></span>
+      </div>
+
+      <div class="skill-item" style="--w:68%">
+        <div class="skill-name">Linux</div>
+        <div class="skill-bar"><div class="skill-fill"></div></div>
+        <div class="skill-pct">68%</div>
+        <div class="skill-sub"><span class="lang-en-i">Server environment, backend ops</span><span class="lang-ja-i">サーバー環境・バックエンド運用</span></div>
+        <span class="skill-badge"><span class="lang-en-i">Work Experience</span><span class="lang-ja-i">実務経験</span></span>
+      </div>
+
+      <div class="skill-item" style="--w:65%">
+        <div class="skill-name">HTML / CSS</div>
+        <div class="skill-bar"><div class="skill-fill"></div></div>
+        <div class="skill-pct">65%</div>
+        <div class="skill-sub"><span class="lang-en-i">Web projects & portfolio work</span><span class="lang-ja-i">Webプロジェクト・ポートフォリオで使用</span></div>
+        <span class="skill-badge"><span class="lang-en-i">Proficient</span><span class="lang-ja-i">得意</span></span>
+      </div>
+
+      <div class="skill-item" style="--w:55%">
+        <div class="skill-name">Java</div>
+        <div class="skill-bar"><div class="skill-fill"></div></div>
+        <div class="skill-pct">55%</div>
+        <div class="skill-sub"><span class="lang-en-i">Studied in 2nd year of university</span><span class="lang-ja-i">大学２年次に学習</span></div>
+        <span class="skill-badge"><span class="lang-en-i">Academic</span><span class="lang-ja-i">学習済み</span></span>
+      </div>
+
+      <div class="skill-item" style="--w:80%">
+        <div class="skill-name">GDScript / Godot</div>
+        <div class="skill-bar"><div class="skill-fill"></div></div>
+        <div class="skill-pct">80%</div>
+        <div class="skill-sub"><span class="lang-en-i">Game projects — itch.io releases</span><span class="lang-ja-i">ゲーム制作・itch.ioで公開</span></div>
+        <span class="skill-badge"><span class="lang-en-i">Shipped Projects</span><span class="lang-ja-i">リリース済み</span></span>
+      </div>
+
     </div>
   </div>
 </section>
@@ -438,7 +706,7 @@
           <div class="project-title">Urashima</div>
           <div class="project-desc"><span class="lang-en">A web-based retelling of the Japanese folk tale Urashima Taro. Interactive narrative experience.</span><span class="lang-ja">日本の民話「浦島太郎」をWebで再現したインタラクティブな物語体験。</span></div>
           <div class="project-tags"><span class="tag">HTML/CSS</span><span class="tag">JavaScript</span><span class="tag">Narrative</span></div>
-          <a href="https://kaungsetlin3013.github.io/urashima/" target="_blank" class="project-link"><span class="lang-en-i">View project</span><span class="lang-ja-i">プロジェクトを見る</span></a>
+          <a href="https://kaungsetlin3013.github.io/urashima/urashima.html" target="_blank" class="project-link"><span class="lang-en-i">View project</span><span class="lang-ja-i">プロジェクトを見る</span></a>
         </div>
       </div>
 
@@ -465,6 +733,71 @@
           <div class="project-desc"><span class="lang-en">A personal profile webpage. Clean layout with responsive design built as a school project.</span><span class="lang-ja">学校のプロジェクトとして制作したプロフィールWebページ。レスポンシブ対応。</span></div>
           <div class="project-tags"><span class="tag">HTML/CSS</span><span class="tag">Responsive</span></div>
           <a href="https://kaungsetlin3013.github.io/SchoolProfileProject/myself.html" target="_blank" class="project-link"><span class="lang-en-i">View project</span><span class="lang-ja-i">プロジェクトを見る</span></a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-placeholder" style="background:linear-gradient(135deg,#0a1a0f,#0f2a1a);display:flex;align-items:center;justify-content:center;gap:12px">
+          <span style="font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;color:rgba(0,245,160,0.3)">SHIFT</span>
+          <span style="font-size:1.6rem;opacity:0.4">📋</span>
+        </div>
+        <div class="project-body">
+          <div class="project-num">07</div>
+          <div class="project-title">ShiftLog</div>
+          <div class="project-desc">
+            <span class="lang-en">A full-featured shift & wage tracker. Manage multiple jobs, auto-calculate night bonuses, export CSV, track monthly bills and taxes — all saved locally.</span>
+            <span class="lang-ja">複数の仕事を管理できるシフト・給与トラッカー。深夜手当の自動計算、CSV書き出し、月次請求・税金管理まで対応。データはローカル保存。</span>
+          </div>
+          <div class="project-tags"><span class="tag">JavaScript</span><span class="tag">LocalStorage</span><span class="tag">Finance</span></div>
+          <a href="https://kaungsetlin3013.github.io/shiftLog/" target="_blank" class="project-link"><span class="lang-en-i">View project</span><span class="lang-ja-i">プロジェクトを見る</span></a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-placeholder" style="background:linear-gradient(135deg,#1a0a0a,#2a0f0f);display:flex;align-items:center;justify-content:center;gap:12px">
+          <span style="font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;color:rgba(255,107,53,0.35)">漫画</span>
+          <span style="font-size:1.6rem;opacity:0.4">📚</span>
+        </div>
+        <div class="project-body">
+          <div class="project-num">08</div>
+          <div class="project-title">漫画 Reader</div>
+          <div class="project-desc">
+            <span class="lang-en">A local manga reader with library management. Parses folder names for title, artist & language, supports RTL reading, favourites, zoom, and fullscreen.</span>
+            <span class="lang-ja">ローカルフォルダから漫画を読めるリーダー。タイトル・作者・言語を自動解析。右から左読み、お気に入り、ズーム、全画面表示に対応。</span>
+          </div>
+          <div class="project-tags"><span class="tag">JavaScript</span><span class="tag">File API</span><span class="tag">Reader</span></div>
+          <a href="https://kaungsetlin3013.github.io/mangaApp/" target="_blank" class="project-link"><span class="lang-en-i">View project</span><span class="lang-ja-i">プロジェクトを見る</span></a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-placeholder" style="background:linear-gradient(135deg,#0a0f1a,#0f1a2a);display:flex;align-items:center;justify-content:center;gap:12px">
+          <span style="font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;color:rgba(123,47,255,0.35)">FRAMED</span>
+          <span style="font-size:1.6rem;opacity:0.4">🖼️</span>
+        </div>
+        <div class="project-body">
+          <div class="project-num">09</div>
+          <div class="project-title">Framed — Photo Showcase</div>
+          <div class="project-desc">
+            <span class="lang-en">A local photo gallery app. Drag-and-drop or folder upload, sort by name/size/type, lightbox viewer with random shuffle — no server needed.</span>
+            <span class="lang-ja">ローカル写真ギャラリーアプリ。ドラッグ＆ドロップやフォルダアップロード対応。ライトボックス表示、シャッフル再生など。サーバー不要。</span>
+          </div>
+          <div class="project-tags"><span class="tag">JavaScript</span><span class="tag">File API</span><span class="tag">Gallery</span></div>
+          <a href="https://kaungsetlin3013.github.io/PhotoShowcase/" target="_blank" class="project-link"><span class="lang-en-i">View project</span><span class="lang-ja-i">プロジェクトを見る</span></a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <img class="project-img" src="https://tblg.k-img.com/restaurant/images/Rvw/162579/640x640_rect_162579198.jpg?w=400&h=300&fit=crop" alt="Hiro-chan Ramen" onerror="this.style.display='none'">
+        <div class="project-body">
+          <div class="project-num">10</div>
+          <div class="project-title">Hiro-chan Ramen</div>
+          <div class="project-desc">
+            <span class="lang-en">A bilingual (EN/JA) restaurant website for a real ramen shop in Ikebukuro. Menu, business hours, location — clean and mobile-friendly.</span>
+            <span class="lang-ja">池袋の実在するラーメン屋の英日バイリンガルWebサイト。メニュー、営業時間、場所を掲載。モバイル対応のクリーンなデザイン。</span>
+          </div>
+          <div class="project-tags"><span class="tag">HTML/CSS</span><span class="tag">JavaScript</span><span class="tag">Bilingual</span></div>
+          <a href="https://kaungsetlin3013.github.io/ramenShop/" target="_blank" class="project-link"><span class="lang-en-i">View project</span><span class="lang-ja-i">プロジェクトを見る</span></a>
         </div>
       </div>
 
@@ -611,6 +944,10 @@ function setLang(lang) {
   document.body.classList.toggle('ja', lang === 'ja');
   document.getElementById('btn-en').classList.toggle('active', lang === 'en');
   document.getElementById('btn-ja').classList.toggle('active', lang === 'ja');
+  var mben = document.getElementById('mbtn-en');
+  var mbja = document.getElementById('mbtn-ja');
+  if (mben) mben.classList.toggle('active', lang === 'en');
+  if (mbja) mbja.classList.toggle('active', lang === 'ja');
 }
 
 // ── SCROLL REVEAL ──
@@ -621,12 +958,12 @@ function setLang(lang) {
     });
   }, { threshold: 0.1 });
 
-  document.querySelectorAll('.reveal, .project-card, .skill-item, .exp-item').forEach(function(el, i) {
+  document.querySelectorAll('.reveal, .project-card, .skill-item, .exp-item, .why-card').forEach(function(el, i) {
     obs.observe(el);
   });
 
   // Stagger delays
-  document.querySelectorAll('.project-card').forEach(function(el, i) {
+  document.querySelectorAll('.why-card, .project-card').forEach(function(el, i) {
     el.style.transitionDelay = (i * 0.07) + 's';
   });
   document.querySelectorAll('.skill-item').forEach(function(el, i) {
@@ -636,6 +973,28 @@ function setLang(lang) {
     el.style.transitionDelay = (i * 0.1) + 's';
   });
 })();
+
+
+// ── HAMBURGER ──
+var hamburger = document.getElementById('hamburger');
+var drawer = document.getElementById('mobileDrawer');
+
+function closeDrawer() {
+  hamburger.classList.remove('open');
+  drawer.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+hamburger.addEventListener('click', function() {
+  var isOpen = drawer.classList.contains('open');
+  if (isOpen) {
+    closeDrawer();
+  } else {
+    hamburger.classList.add('open');
+    drawer.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+});
 
 // ── NAV ACTIVE ──
 (function() {
